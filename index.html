@@ -131,6 +131,11 @@
                 margin-bottom: 2rem;
             }
             
+            .hero-title {
+                line-height: 1.2;
+                word-spacing: 0.3em;
+            }
+            
             .map-container {
                 padding-bottom: 75%;
                 margin-bottom: 2rem;
@@ -274,7 +279,7 @@
             <div class="bird-icon mb-6">
                 <i class="fas fa-kiwi-bird text-red-600 text-8xl"></i>
             </div>
-            <h1 class="hero-title text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-4" style="font-size: clamp(2.5rem, 8vw, 4em);">Casa Tuiuiú</h1>
+            <h1 class="hero-title text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 px-4 leading-tight" style="font-size: clamp(2.5rem, 8vw, 4em); line-height: 1.2; word-spacing: 0.2em;">Casa Tuiuiú</h1>
             <p class="hero-subtitle text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 px-4 max-w-3xl mx-auto">Sua hospedagem confortável e com segurança em Bonito</p>
             <div class="flex justify-center px-4">
                 <a href="#contact" class="touch-target bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 sm:px-8 rounded-lg transition duration-300 inline-block shadow-md hover:shadow-xl transform hover:-translate-y-0.5 w-full sm:w-auto max-w-xs text-center">
@@ -582,6 +587,15 @@
                             <span><strong>Rio Sucuri</strong> - 35 minutos</span>
                         </li>
                     </ul>
+                    
+                    <!-- Imagem expansível da vista aérea -->
+                    <div class="mt-8">
+                        <h4 class="text-lg font-bold mb-4">Vista aérea do condomínio e Bonito</h4>
+                        <img src="attached_assets/3.jpg" alt="Vista aérea do condomínio e Bonito"
+                             class="expandable-image rounded-lg shadow-lg w-full cursor-pointer"
+                             onclick="openModal()" loading="lazy">
+                        <p class="text-sm text-gray-600 mt-2 text-center">Clique para ampliar</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -590,6 +604,7 @@
   
 <!-- Modal for Image 3 -->
     <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
         <div class="modal-content">
             <img src="attached_assets/3.jpg" alt="Vista aérea do condomínio e Bonito">
         </div>
@@ -703,6 +718,32 @@
                 imageObserver.observe(img);
             });
         }
+
+        // Modal functionality
+        function openModal() {
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal when clicking the X button
+        document.querySelector('.close').addEventListener('click', closeModal);
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
