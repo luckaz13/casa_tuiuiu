@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Tuiuiú - Aluguel de Temporada em Bonito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+        }
+
+        .bird-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .gallery-image {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.03);
+        }
+
+        .amenity-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #DC2626;
+        }
+
+        .testimonial-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+
+        .map-container iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+/* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        .expandable-image {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .expandable-image:hover {
+            opacity: 0.8;
+        }
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-kiwi-bird text-red-600 text-3xl mr-2"></i>
+                        <span class="font-bold text-xl">Casa Tuiuiú</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="py-2 px-3 rounded hover:bg-red-50 hover:text-red-600 transition">Início</a>
+                    <a href="#about" class="py-2 px-3 rounded hover:bg-red-50 hover:text-red-600 transition">A Casa</a>
+                    <a href="#gallery" class="py-2 px-3 rounded hover:bg-red-50 hover:text-red-600 transition">Galeria</a>
+                    <a href="#amenities" class="py-2 px-3 rounded hover:bg-red-50 hover:text-red-600 transition">Comodidades</a>
+                    <a href="#contact" class="py-2 px-3 rounded hover:bg-red-50 hover:text-red-600 transition">Contato</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden mobile-menu bg-white">
+            <ul class="">
+                <li><a href="#home" class="block py-2 px-4 hover:bg-red-50">Início</a></li>
+                <li><a href="#about" class="block py-2 px-4 hover:bg-red-50">A Casa</a></li>
+                <li><a href="#gallery" class="block py-2 px-4 hover:bg-red-50">Galeria</a></li>
+                <li><a href="#amenities" class="block py-2 px-4 hover:bg-red-50">Comodidades</a></li>
+                <li><a href="#contact" class="block py-2 px-4 hover:bg-red-50">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section flex items-center justify-center text-white">
+        <div class="text-center px-4">
+            <div class="bird-icon mb-6">
+                <i class="fas fa-kiwi-bird text-red-600 text-8xl"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6" style="font-size: 4em;">Casa Tuiuiú</h1>
+            <p class="text-xl md:text-2xl mb-8">Sua hospedagem confortável e com segurança em Bonito</p>
+            <div class="flex gap-4 justify-center">
+                <a href="#contact" class="bg-[#FF385C] hover:bg-[#E31C5F] text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
+                    <div class="flex items-center gap-2">
+                        <i class="fab fa-airbnb text-2xl"></i>
+                        <span>Airbnb</span>
+                    </div>
+                </a>
+                <a href="#contact" class="bg-[#003580] hover:bg-[#00224f] text-white font-bold py-4 px-8 rounded-lg transition duration-300 inline-block shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
+                    <div class="flex items-center gap-2">
+                        <i class="fa fa-bed text-2xl"></i>
+                        <span>Booking.com</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Sobre a Casa Tuiuiú</h2>
+                <div class="w-20 h-1 bg-red-600 mx-auto mb-6"></div>
+                <p class="max-w-2xl mx-auto text-lg">Inspirada na majestosa ave pantaneira, nossa casa oferece conforto e tranquilidade em meio à natureza exuberante de Bonito.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Casa Tuiuiú" class="rounded-lg shadow-xl w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4">Seu refúgio seguro e tranquilo em Bonito</h3>
+                    <p class="mb-4">A Casa Tuiuiú é uma propriedade de dois andares situada em um condomínio seguro e tranquilo, que conta com lagos naturais, cercada por natureza e com vista para uma bela área verde.</p>
+                    <p class="mb-6">Com arquitetura que harmoniza com o ambiente, a casa oferece privacidade e conforto para famílias ou grupos que desejam desfrutar das belezas naturais da região.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-home text-red-600 mr-2"></i>
+                            <span>2 andares</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-bed text-red-600 mr-2"></i>
+                            <span>3 quartos (1 suíte)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-bath text-red-600 mr-2"></i>
+                            <span>2 banheiros</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-red-600 mr-2"></i>
+                            <span>8 pessoas</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-wind text-red-600 mr-2"></i>
+                            <span>Ar-condicionado</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-paw text-red-600 mr-2"></i>
+                            <span>Pet-friendly</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-utensils text-red-600 mr-2"></i>
+                            <span>Área de churrasco</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Galeria</h2>
+                <div class="w-20 h-1 bg-red-600 mx-auto mb-6"></div>
+                <p class="max-w-2xl mx-auto text-lg">Conheça os espaços encantadores da Casa Tuiuiú</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gallery-image rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600566752227-8bc77abf9e10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Sala de estar" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold">Sala de Estar</h3>
+                        <p class="text-gray-600">Ampla e aconchegante com vista para o jardim</p>
+                    </div>
+                </div>
+
+                <div class="gallery-image rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80" alt="Cozinha" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold">Cozinha Equipada</h3>
+                        <p class="text-gray-600">Totalmente equipada para preparar refeições especiais</p>
+                    </div>
+                </div>
+
+                <div class="gallery-image rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Quarto principal" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold">Quarto Principal</h3>
+                        <p class="text-gray-600">Confortável com vista para a natureza</p>
+                    </div>
+                </div>
+
+                <div class="gallery-image rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Área externa" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold">Área Externa</h3>
+                        <p class="text-gray-600">Amplo gramado e área de lazer</p>
+                    </div>
+                </div>
+
+                <div class="gallery-image rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Churrasqueira" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold">Área de Churrasco</h3>
+                        <p class="text-gray-600">Completa para momentos especiais</p>
+                    </div>
+                </div>
+
+                <div class="gallery-image rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Vista da natureza" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <h3 class="font-bold">Vista para a Natureza</h3>
+                        <p class="text-gray-600">Desfrute da tranquilidade do pantanal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Comodidades</h2>
+                <div class="w-20 h-1 bg-red-600 mx-auto mb-6"></div>
+                <p class="max-w-2xl mx-auto text-lg">Tudo que você precisa para uma estadia perfeita</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Wi-Fi Rápido</h3>
+                    <p class="text-gray-600">Conexão de alta velocidade em toda a casa</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Suíte superior com duas varandas</h3>
+                    <p class="text-gray-600">Vista privilegiada para a natureza</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Churrasqueira</h3>
+                    <p class="text-gray-600">Área completa para churrascos</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Estacionamento</h3>
+                    <p class="text-gray-600">Garagem coberta para até 2 carros</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">TV a Cabo</h3>
+                    <p class="text-gray-600">TVs em todos os quartos e sala</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Ar Condicionado</h3>
+                    <p class="text-gray-600">Em todos os quartos</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Área Externa</h3>
+                    <p class="text-gray-600">Fundos da casa com vista para a mata nativa</p>
+                </div>
+
+                <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition">
+                    <div class="amenity-icon">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Pet Friendly</h3>
+                    <p class="text-gray-600">Aceitamos seu animal de estimação</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Reserve sua estadia</h2>
+                <div class="w-20 h-1 bg-red-600 mx-auto mb-6"></div>
+                <p class="max-w-2xl mx-auto text-lg">Entre em contato para mais informações ou para fazer sua reserva</p>
+            </div>
+
+            <div class="flex justify-center w-full">
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <h3 class="text-2xl font-bold mb-6">Reserve sua estadia</h3>
+                        <div class="flex flex-col gap-4">
+                            <a href="https://www.airbnb.com.br/rooms/SEU_ID_AIRBNB" 
+                               class="inline-flex items-center justify-center px-6 py-3 text-white font-bold rounded-lg transition duration-300 hover:opacity-90"
+                               style="background-color: #FF385C;">
+                                <i class="fab fa-airbnb text-2xl mr-2"></i>
+                                Reservar no Airbnb
+                            </a>
+                            <a href="https://www.booking.com/hotel/SEU_ID_BOOKING" 
+                               class="inline-flex items-center justify-center px-6 py-3 text-white font-bold rounded-lg transition duration-300 hover:opacity-90"
+                               style="background-color: #003580;">
+                                <i class="fa fa-bed text-2xl mr-2"></i>
+                                Reservar no Booking.com
+                            </a>
+                            <a href="https://wa.me/SEU_NUMERO_WHATSAPP" 
+                               class="inline-flex items-center justify-center px-6 py-3 bg-green-500 text-white font-bold rounded-lg transition duration-300 hover:bg-green-600">
+                                <i class="fab fa-whatsapp text-2xl mr-2"></i>
+                                Falar no WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Location Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Localização privilegiada</h2>
+                <div class="w-20 h-1 bg-red-600 mx-auto mb-6"></div>
+                <p class="max-w-2xl mx-auto text-lg">A menos de 10 minutos do centro de Bonito e a 1 hora da Serra da Bodoquena, em um condomínio tranquilo e seguro</p>
+            </div>
+
+            <div class="flex flex-col max-w-4xl mx-auto mb-12 space-y-8">
+                <!-- Imagem 1 -->
+                <div class="rounded-lg shadow-xl overflow-hidden">
+                    <img src="attached_assets/1.jpg" class="w-full object-cover" alt="Entrada do condomínio" style="max-height: 400px;">
+                    <div class="bg-white p-4">
+                        <p class="text-lg font-medium">Entrada do condomínio</p>
+                        <p class="text-gray-600">Portaria com segurança 24 horas garantindo segurança durante sua estadia.</p>
+                    </div>
+                </div>
+                
+                <!-- Imagem 2 -->
+                <div class="rounded-lg shadow-xl overflow-hidden">
+                    <img src="attached_assets/2.jpeg" class="w-full object-cover" alt="Lago do condomínio" style="max-height: 400px;">
+                    <div class="bg-white p-4">
+                        <p class="text-lg font-medium">Lago do condomínio</p>
+                        <p class="text-gray-600">O condomínio conta com lago natural, perfeito para momentos de relaxamento em contato com a natureza.</p>
+                    </div>
+                </div>
+<!-- Imagem 4 -->
+                <div class="rounded-lg shadow-xl overflow-hidden">
+                    <img src="attached_assets/4.jpg" class="w-full object-cover" alt="Balneário do Sol" style="max-height: 400px;">
+                    <div class="bg-white p-4">
+                        <p class="text-lg font-medium">Balneário do Sol</p>
+                        <p class="text-gray-600">A casa está localizada a 25 minutos do Balneário do Sol, um dos destinos mais procurados da região.</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <div class="map-container rounded-lg shadow-lg">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1859.1766821961614!2d-56.49723234646055!3d-21.112649499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f6.5!5e0!3m2!1spt-BR!2sbr!4v1701799611909!5m2!1spt-BR!2sbr" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-8">Como chegar</h3>
+                    <p class="mb-4">A Casa Tuiuiú está localizada no Condomínio Solar dos Lagos, construído onde anteriormente funcionava o antigo balneário municipal, conhecido como Calcarinho. A menos de dois quilômetros do centro de Bonito, a cidade mantém índice zero de violência, oferecendo uma experiência tranquila e segura para sua família.</p>
+                    <p class="mb-6">A casa é próxima às principais <strong>atrações turísticas da região</strong>, como:</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-red-600 mr-2"></i>
+                            <span><strong>Centro de Bonito</strong> - 8 minutos</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-red-600 mr-2"></i>
+                            <span><strong>Balneário Municipal</strong> - 20 minutos</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-red-600 mr-2"></i>
+                            <span><strong>Gruta do Lago Azul</strong> - 30 minutos</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-red-600 mr-2"></i>
+                            <span><strong>Rio Sucuri</strong> - 35 minutos</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+<!-- Modal for Image 3 -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <img src="attached_assets/3.jpg" alt="Vista aérea do condomínio e Bonito">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-kiwi-bird text-red-600 text-3xl mr-2"></i>
+                        <span class="font-bold text-xl">Casa Tuiuiú</span>
+                    </div>
+                    <p class="mt-2 text-gray-400">Sua hospedagem confortável e com segurança em Bonito</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+                    <a href="#home" class="hover:text-red-400 transition">Início</a>
+                    <a href="#about" class="hover:text-red-400 transition">A Casa</a>
+                    <a href="#gallery" class="hover:text-red-400 transition">Galeria</a>
+                    <a href="#amenities" class="hover:text-red-400 transition">Comodidades</a>
+                    <a href="#contact" class="hover:text-red-400 transition">Contato</a>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2025 Casa Tuiuiú. Todos os direitos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const btn = document.querySelector("button.mobile-menu-button");
+        const menu = document.querySelector(".mobile-menu");
+
+        btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open
+                if (!menu.classList.contains('hidden')) {
+                    menu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
