@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://luckaz13.github.io/casa_tuiuiu/sitemap.xml
+
+# Disallow sensitive files
+Disallow: /*.log$
+Disallow: /deploy.bat
+Disallow: /deploy.ps1
+Disallow: /.htaccess
+
+# Allow important pages
+Allow: /index.html
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Crawl-delay (optional)
+Crawl-delay: 1
