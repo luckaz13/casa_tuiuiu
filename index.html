@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!-- CSS crítico inline para carregamento inicial rápido -->
+    <style>
+      body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+      .bg-white { background: #fff; }
+      .text-black { color: #000; }
+      .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover; background-position: center; height: 90vh;
+      }
+      .hero-title { font-size: clamp(2.5rem,8vw,4em); line-height: 1.2; word-spacing: 0.2em; }
+      .focus-visible:focus { outline: 2px solid #DC2626; outline-offset: 2px; }
+      .skip-link {
+        position: absolute; top: -40px; left: 6px; background: #DC2626; color: #fff;
+        padding: 8px; text-decoration: none; border-radius: 4px; z-index: 1000;
+      }
+      .skip-link:focus { top: 6px; }
+      nav.bg-white { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+      .rounded { border-radius: 0.5rem; }
+      .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+      .text-red-600 { color: #DC2626; }
+      .font-bold { font-weight: 700; }
+      .transition { transition: all 0.3s; }
+      .hover\:bg-red-50:hover { background: #fef2f2; }
+      .hover\:text-red-600:hover { color: #DC2626; }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
     <meta name="description" content="Casa Tuiuiú - Aluguel de temporada em Bonito, MS. 3 quartos, 8 pessoas, condomínio seguro com lagos naturais. Próximo às principais atrações do Pantanal. Reserve já!">
     <meta name="author" content="Casa Tuiuiú">
     <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://luckaz13.github.io/casa_tuiuiu/" />
     
     <!-- Security Headers -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdn.tailwindcss.com https://maps.googleapis.com https://maps.gstatic.com 'sha256-inline-hash'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' data: https: https://maps.googleapis.com https://maps.gstatic.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; frame-src 'self' https://www.google.com;">
@@ -19,14 +47,31 @@
     <meta property="og:url" content="https://luckaz13.github.io/casa_tuiuiu/">
     <meta property="og:title" content="Casa Tuiuiú - Aluguel de Temporada em Bonito, MS">
     <meta property="og:description" content="Casa confortável em condomínio seguro com lagos naturais, próxima às principais atrações turísticas de Bonito, MS e Pantanal.">
+    <!-- Open Graph images for multiple resolutions -->
     <meta property="og:image" content="https://luckaz13.github.io/casa_tuiuiu/images/1.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image" content="https://luckaz13.github.io/casa_tuiuiu/images/1-800.jpg">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="418">
+    <meta property="og:image" content="https://luckaz13.github.io/casa_tuiuiu/images/1-600.jpg">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="315">
     
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://luckaz13.github.io/casa_tuiuiu/">
-    <meta property="twitter:title" content="Casa Tuiuiú - Aluguel de Temporada em Bonito, MS">
-    <meta property="twitter:description" content="Casa confortável em condomínio seguro com lagos naturais, próxima às principais atrações turísticas de Bonito, MS e Pantanal.">
-    <meta property="twitter:image" content="https://luckaz13.github.io/casa_tuiuiu/images/1.jpg">
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://luckaz13.github.io/casa_tuiuiu/">
+    <meta name="twitter:title" content="Casa Tuiuiú - Aluguel de Temporada em Bonito, MS">
+    <meta name="twitter:description" content="Casa confortável em condomínio seguro com lagos naturais, próxima às principais atrações turísticas de Bonito, MS e Pantanal.">
+    <!-- Twitter Card images matching Open Graph -->
+    <meta name="twitter:image" content="https://luckaz13.github.io/casa_tuiuiu/images/1.jpg">
+    <meta name="twitter:image:width" content="1200">
+    <meta name="twitter:image:height" content="630">
+    <meta name="twitter:image" content="https://luckaz13.github.io/casa_tuiuiu/images/1-800.jpg">
+    <meta name="twitter:image:width" content="800">
+    <meta name="twitter:image:height" content="418">
+    <meta name="twitter:site" content="@casatuiuiu">
+    <meta name="twitter:creator" content="@casatuiuiu">
     
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,15 +87,11 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" as="style">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    <link rel="preload" href="css/main.css" as="style">
+    <link rel="preload" href="css/main.min.css" as="style">
     
     <!-- Stylesheets -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <link rel="stylesheet" href="css/main.min.css">
 </head>
 <body class="bg-white text-black">
     <!-- Skip Link for Accessibility -->
@@ -211,6 +252,10 @@
                         <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Fachada da Casa Tuiuiú com jardim e área verde ao fundo" class="rounded-lg shadow-xl w-full lazy-load" loading="lazy">
                     </div>
                     <div class="md:w-1/2">
+<!-- Imagem de casa de condomínio típica de Bonito/MS -->
+<div class="mb-4 flex justify-center">
+  
+</div>
                         <h3 class="text-2xl font-bold mb-4">Seu refúgio seguro e tranquilo em Bonito</h3>
                         <p class="mb-4">A Casa Tuiuiú é uma propriedade de dois andares situada em um condomínio seguro e tranquilo, que conta com lagos naturais, cercada por natureza e com vista para uma bela área verde do Pantanal.</p>
                         <p class="mb-6">Com arquitetura que harmoniza com o ambiente pantaneiro, a casa oferece privacidade e conforto para famílias ou grupos que desejam desfrutar das belezas naturais da região de Bonito e arredores.</p>
@@ -442,17 +487,17 @@
 
                 <div class="flex flex-col max-w-4xl mx-auto mb-12 space-y-8">
                     <div class="rounded-lg shadow-xl overflow-hidden">
-                        <img src="images/1.jpg" class="w-full object-cover location-image" alt="Entrada do condomínio Solar dos Lagos com portaria e segurança 24 horas">
+                        <img src="images/1.jpg" class="w-full object-cover location-image" alt="Entrada do condomínio Solar dos Lagos em Bonito MS, portaria com segurança 24 horas para hóspedes da Casa Tuiuiú">
                         <div class="bg-white p-4">
-                            <p class="text-lg font-medium">Entrada do condomínio</p>
+                            <p class="text-lg font-medium"><strong>Entrada do Condomínio Solar dos Lagos</strong></p>
                             <p class="text-gray-600">Portaria com segurança 24 horas garantindo segurança durante sua estadia no Pantanal.</p>
                         </div>
                     </div>
                     
                     <div class="rounded-lg shadow-xl overflow-hidden">
-                        <img src="images/2.jpeg" class="w-full object-cover location-image" alt="Lago natural do condomínio com vegetação pantaneira">
+                        <img src="images/2.jpeg" class="w-full object-cover location-image" alt="Lago natural do condomínio Solar dos Lagos em Bonito MS, área de lazer e contemplação da natureza para hóspedes da Casa Tuiuiú">
                         <div class="bg-white p-4">
-                            <p class="text-lg font-medium">Lago do condomínio</p>
+                            <p class="text-lg font-medium"><strong>Lago Natural do Condomínio</strong></p>
                             <p class="text-gray-600">O condomínio conta com lago natural, perfeito para momentos de relaxamento em contato com a natureza pantaneira.</p>
                         </div>
                     </div>
@@ -460,7 +505,7 @@
                     <div class="rounded-lg shadow-xl overflow-hidden">
                         <img src="images/4.jpg" class="w-full object-cover location-image" alt="Balneário do Sol - atração turística próxima à Casa Tuiuiú">
                         <div class="bg-white p-4">
-                            <p class="text-lg font-medium">Balneário do Sol</p>
+                            <p class="text-lg font-medium"><strong>Balneário Municipal do Sol</strong></p>
                             <p class="text-gray-600">A casa está localizada a 25 minutos do Balneário do Sol, um dos destinos mais procurados da região do Pantanal.</p>
                         </div>
                     </div>
@@ -553,6 +598,9 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/main.js"></script>
+    <script src="js/main.min.js"></script>
+    <!-- Scripts moved to end of body -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 </body>
 </html>

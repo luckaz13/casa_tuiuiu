@@ -290,3 +290,26 @@ if ('connection' in navigator) {
         document.body.classList.add('slow-connection');
     }
 }
+// Adiciona aria-current="page" no menu conforme o hash da URL
+document.addEventListener('DOMContentLoaded', function() {
+  function updateAriaCurrent() {
+    const hash = window.location.hash || '#home';
+    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+      if (link.getAttribute('href') === hash) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+    // Mobile menu
+    document.querySelectorAll('.mobile-menu a[href^="#"]').forEach(link => {
+      if (link.getAttribute('href') === hash) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+  window.addEventListener('hashchange', updateAriaCurrent);
+  updateAriaCurrent();
+});
