@@ -1,0 +1,25 @@
+{
+  "name": "casa-aluguel-bonito",
+  "version": "1.0.0",
+  "description": "Website profissional para divulgação e reservas da Casa Tuiuiú, uma propriedade de aluguel de temporada localizada em Bonito, MS, no coração do Pantanal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luckaz13/casa_tuiuiu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/luckaz13/casa_tuiuiu/issues"
+  },
+  "homepage": "https://github.com/luckaz13/casa_tuiuiu#readme",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
